@@ -1,3 +1,5 @@
+// This function is used both in the 'canvas' layer and in the block
+// when saving the block
 export default function(arrayOfPoints) {
     let pathString = '';
 

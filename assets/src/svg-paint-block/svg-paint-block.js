@@ -1,4 +1,8 @@
+// the element that click handling occurs on
 import SVGCanvas from './components/SVGCanvas';
+
+// The function that turns an array of points into
+// the path syntax for svg
 import getSVGPath from './getSVGPath';
 
 const { registerBlockType } = wp.blocks;
@@ -31,26 +35,21 @@ registerBlockType('svg-paint-block/block', {
             });
         }
 
-        return [
-            <InspectorControls>
-                <div
-                    style={{
-                        padding: '1em 0',
-                    }}
-                >
-                    Options
-                </div>
-            </InspectorControls>,
+        // For the editing block, we simply render the "canvas"- the layer
+        // that takes all the user mouse clicks and records strokes
+        return (
             <div className={className}>
                 <SVGCanvas addStroke={addStroke} strokeList={strokeList} />
-            </div>,
-        ];
+            </div>
+        );
     },
 
     save(props) {
         const { className } = props;
         const { backgroundColor, strokeList } = props.attributes;
 
+        // Here, we dispense with the 'canvas' layer and just render out the svg.
+        // The strength here is that we don't have to run and javascript on the page
         return (
             <div
                 style={{

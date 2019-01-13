@@ -25,9 +25,11 @@ export default class SVGCanvas extends React.Component {
     mouseMoveHandler(event) {
         // Need to refer to a ref of the container because event.target
         // will recognize the path element and mess up calculations
+        // Could have also just used currentTarget...
         const domRect = this.refs.canvas.getBoundingClientRect();
         const top = domRect.top;
         // TODO: Why does left give decimal precision?
+        // If anyone knows why, I'd love to hear.  For now, let's round
         const left = Math.round(domRect.left);
         const point = {
             x: event.clientX - left,
@@ -42,6 +44,10 @@ export default class SVGCanvas extends React.Component {
     }
 
     mouseUpHandler() {
+        // If I had more time, and really iterated on this concept,
+        // I would attach this handler to the window when this component was
+        // loaded and remove it on componentWillUnMount.
+        // For demo purposes, this is okay
         this.props.addStroke(this.state.inProgressLine);
 
         this.setState({
