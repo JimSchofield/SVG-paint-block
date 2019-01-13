@@ -1,0 +1,1 @@
+import './svg-paint-block/svg-paint-block';
